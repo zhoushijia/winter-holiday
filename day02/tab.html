@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tab栏自动切换</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      #box {
+        width: 400px;
+      }
+      li {
+        list-style: none;
+      }
+      ol {
+        width: 400px;
+        height: 50px;
+      }
+      ol li {
+        float: left;
+        width: 100px;
+        height: 50px;
+        box-sizing: border-box;
+        border: 1px solid orange;
+      }
+      ul li {
+        width: 400px;
+        height: 200px;
+        box-sizing: border-box;
+        border: 1px solid green;
+      }
+      .current {
+        background-color: #f00;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box">
+      <ol>
+        <li class="current">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+      </ol>
+      <ul>
+        <li>内容1</li>
+        <li style="display: none">内容2</li>
+        <li style="display: none">内容3</li>
+        <li style="display: none">内容4</li>
+      </ul>
+    </div>
+    <script>
+      const oOlLis = document.querySelectorAll('ol li')
+      const oUlLis = document.querySelectorAll('ul li')
+      const oDiv = document.querySelector('#box')
+      let index = 0
+
+      for (let i = 0; i < oOlLis.length; i++) {
+        oOlLis[i].index = i
+        oOlLis[i].onclick = function () {
+          // 每次点击时 改变索引 保证自动轮播顺序
+          index = this.index
+          // 排他思想
+          for (let j = 0; j < oOlLis.length; j++) {
+            oOlLis[j].className = ''
+            oUlLis[j].style.display = 'none'
+          }
+          this.className = 'current'
+          oUlLis[this.index].style.display = 'block'
+        }
+      }
+
+      //   自动轮播
+      let timer = setInterval(function () {
+        if (index === 4) index = 0
+        oOlLis[index].click()
+        index++
+      }, 1000)
+
+      //   经过时清除定时器
+      oDiv.onmouseenter = function () {
+        clearInterval(timer)
+      }
+      //   离开时开启定时器
+      oDiv.onmouseleave = function () {
+        timer = setInterval(function () {
+          if (index === 4) index = 0
+          oOlLis[index].click()
+          index++
+        }, 1000)
+      }
+    </script>
+  </body>
+</html>
