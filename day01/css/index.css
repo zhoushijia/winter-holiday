@@ -53,6 +53,11 @@ body {
   position: relative;
   height: 4.08rem;
   background-color: #ff7200;
+  text-align: center;
+}
+.bar {
+  width: 95%;
+  height: 0.267rem;
 }
 .avatar {
   position: absolute;
@@ -74,9 +79,10 @@ body {
   color: #fff;
 }
 .logo {
+  position: absolute;
+  left: 0.92rem;
   width: 8.547rem;
   height: 4.56rem;
-  margin-left: 0.92rem;
 }
 /* 中间优惠卷部分 */
 .nav {
@@ -86,6 +92,48 @@ body {
   width: 100%;
 }
 /* 我的专属 */
-.mine{
-    
+.mine {
+  margin-top: 0.267rem;
+}
+.mine img {
+  width: 100%;
+}
+/* 咨询 */
+.server {
+  height: 3.2rem;
+  padding: 0 0.267rem;
+}
+.server ul {
+  display: flex;
+}
+.server li {
+  flex: 1;
+}
+.server li:first-child {
+  margin-right: 0.267rem;
+}
+.server li img {
+  width: 100%;
+}
+/* 底部 */
+.footer {
+  height: 1.307rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 0.267rem;
+}
+.footer a {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  color: #ccc;
+}
+.footer a img {
+  width: 0.6rem;
+  height: 0.6rem;
+}
+.footer a:first-child p {
+  color: #ff7200;
 }
