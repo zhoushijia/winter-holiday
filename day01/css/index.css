@@ -1,0 +1,91 @@
+@media screen and (max-width: 320px) {
+  html {
+    font-size: 32px !important;
+  }
+}
+/* 如果屏幕尺寸超过了750px，则将html的字体限制在750尺寸的字体大小 */
+@media screen and (min-width: 750px) {
+  html {
+    font-size: 75px !important;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+  color: #666;
+}
+img {
+  vertical-align: middle;
+  border: none;
+}
+input {
+  border: none;
+  outline: none;
+}
+
+li {
+  list-style: none;
+}
+i {
+  font-style: normal;
+}
+strong {
+  font-weight: 400;
+}
+body {
+  margin: 0 auto;
+  min-width: 350px;
+  width: 10rem;
+  line-height: 1.5;
+  font-family: arial, helvetica;
+  font-size: 0.32rem;
+  background-color: #fff;
+  -webkit-tap-highlight-color: transparent;
+}
+/* 头部 */
+#header {
+  overflow: hidden;
+  position: relative;
+  height: 4.08rem;
+  background-color: #ff7200;
+}
+.avatar {
+  position: absolute;
+  left: 0.8rem;
+  top: 1.907rem;
+  width: 1.307rem;
+  height: 1.307rem;
+  border-radius: 50%;
+}
+.avatar img {
+  width: 100%;
+  border-radius: 50%;
+}
+#header p {
+  position: absolute;
+  left: 2.52rem;
+  top: 2.16rem;
+  font-size: 0.48rem;
+  color: #fff;
+}
+.logo {
+  width: 8.547rem;
+  height: 4.56rem;
+  margin-left: 0.92rem;
+}
+/* 中间优惠卷部分 */
+.nav {
+  height: 2.773rem;
+}
+.nav img {
+  width: 100%;
+}
+/* 我的专属 */
+.mine{
+    
+}
