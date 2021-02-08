@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"><father></father></div>
+    <template id="father">
+      <div>
+        <div>父亲姓名：{{name}}</div>
+        <div>母亲姓名：<input type="text" v-model="mothername" /></div>
+        <div>大儿子媳妇：{{wife1}}</div>
+        <son1 :mothername="mothername" @wife1="getName"></son1>
+        <son2 :mothername="mothername" :wife1="wife1"></son2>
+      </div>
+    </template>
+    <template id="son1">
+      <div>
+        <hr />
+        儿子1组件
+        <div>儿子1的姓名：{{s1name}}</div>
+        <div>媳妇1的姓名：<input type="text" v-model="wife1name" @input="$emit('wife1',wife1name)" /></div>
+        <div>儿子1母亲姓名:{{mothername}}</div>
+        <hr />
+      </div>
+    </template>
+    <template id="son2">
+      <div>
+        <hr />
+        儿子2组件
+        <div>儿子2的姓名：{{s2name}}</div>
+        <div>儿子2母亲姓名:{{mothername}}</div>
+        <div>儿子2大嫂姓名:{{wife1}}</div>
+        <hr />
+      </div>
+    </template>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue-router/3.4.8/vue-router.js"></script>
+
+    <script>
+      // 儿子1
+      const Son1 = {
+        props: ['mothername'],
+        data() {
+          return {
+            s1name: '儿子1',
+            wife1name: ''
+          }
+        },
+        template: '#son1'
+      }
+      const Son2 = {
+        props: ['mothername', 'wife1'],
+        data() {
+          return {
+            s2name: '儿子2'
+          }
+        },
+        template: '#son2'
+      }
+      // 父组件
+      Vue.component('father', {
+        name: 'father',
+        data: function () {
+          return {
+            name: '爸爸',
+            mothername: '妈妈',
+            wife1: ''
+          }
+        },
+        template: '#father',
+        methods: {
+          getName(name) {
+            this.wife1 = name
+          }
+        },
+        components: {
+          son1: Son1,
+          son2: Son2
+        }
+      })
+      // vue实例对象
+      const vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {}
+      })
+    </script>
+  </body>
+</html>
