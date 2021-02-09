@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .good {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 10px;
+        display: flex;
+      }
+      .left img {
+        width: 240px;
+        height: 240px;
+        background-color: pink;
+      }
+      .right {
+        padding: 10px 30px 10px;
+      }
+      .right .price {
+        color: red;
+        font-size: 20px;
+      }
+      .right .price span {
+        text-decoration: line-through;
+        font-size: 16px;
+        color: #000;
+      }
+      .right button {
+        display: block;
+        color: #fff;
+        background: red;
+        width: 80px;
+        height: 40px;
+        /* line-height: 40px; */
+        text-align: center;
+      }
+      .numbox {
+        margin: 10px 0;
+      }
+      .num {
+        width: 120px;
+        height: 30px;
+        font-size: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <goods-item v-for="item in goodlist" :key="item.id" :item="item"></goods-item>
+    </div>
+    <!-- 3.局商品组件结构 -->
+    <template id="goodsItem">
+      <div class="good">
+        <div class="left">
+          <img :src="item.img_url" alt="" />
+        </div>
+        <div class="right">
+          <h2>{{item.title}}</h2>
+          <p>上架日期: {{item.add_time}}</p>
+          <span>库存数量: {{item.stock_quantity}}</span>
+          <div class="price">￥{{item.sell_price}}<span>￥{{item.market_price}}</span></div>
+          <div class="numbox"><label for="num">购买数量</label><input type="text" id="num" v-model="num" /></div>
+          <button @click="goToBuy(item.id)">立即购买</button>
+        </div>
+      </div>
+    </template>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue-router/3.4.8/vue-router.js"></script>
+    <script>
+      // 2.商品组件goods-item
+      const GoodsItem = {
+        props: ['item'],
+        data() {
+          return {
+            num: ''
+          }
+        },
+        methods: {
+          goToBuy(id) {
+            location.href = `/buy?id=${id}&num=${this.num}`
+          }
+        },
+        template: '#goodsItem'
+      }
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          goodlist: []
+        },
+        // 1.在created⽣命周期发送axios请求获取商品列表数据
+        created() {
+          this.getGoodlist()
+        },
+        methods: {
+          async getGoodlist() {
+            const { data: res } = await axios.get('http://www.liulongbin.top:3005/api/getgoods?pageindex=0')
+            if (res.status !== 0) return alert('获取商品列表失败')
+            this.goodlist = res.message
+            console.log(this.goodlist)
+          }
+        },
+        components: {
+          GoodsItem
+        }
+      })
+    </script>
+  </body>
+</html>
